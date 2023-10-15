@@ -1,0 +1,16 @@
+.grid-container {
+    background-color: black;
+    width: 520px;
+    height: 520px;
+    margin: auto;
+    
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .grid-div {
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    border:1px solid white;
+  }
