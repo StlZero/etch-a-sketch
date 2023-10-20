@@ -9,6 +9,8 @@ body {
 #eas-header {
   text-align: center;
   font-size: 72px;
+
+  margin: 30px;
 }
 
 .grid-container {
