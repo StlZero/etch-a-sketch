@@ -15,10 +15,10 @@ function generateDivs(size) {
     let div1 = document.createElement('div');
     div1.classList.add('grid-div');
     let grid_div = document.querySelector('.grid-div');
-    div1.style.width = (Math.sqrt((600 * 600) / (size * size)) - 2).toString() + "px"; // Take container (width * height) / (user input size squared) - 2px (border size for each divs)
-    div1.style.height = (Math.sqrt((600 * 600) / (size * size)) - 2).toString() + "px";
-    div1.style.background = 'yellow';
-    div1.style.border = '1px solid white';
+    div1.style.width = ((600) / (size) - 2).toString() + "px"; // Take container (length) / (user input size) - 2px (border size for each divs)
+    div1.style.height = ((600) / (size) - 2).toString() + "px";
+    div1.style.background = 'white';
+    div1.style.border = '1px solid grey';
       
     grid_container.appendChild(div1);
   }
@@ -36,8 +36,17 @@ function sliderFunc() {
   return size_slider.value;
 }
 //
-// Call function
+// Call function on website loaded
 generateDivs(sliderFunc());
+// Call function when slider value is changed
+size_slider.addEventListener('mouseup', (e) => {
+  let div1 = document.querySelectorAll('.grid-div');
+
+  div1.forEach(element => {
+    element.remove();
+  })
+  generateDivs(sliderFunc());
+})
 
 
 
@@ -50,13 +59,13 @@ if (color_btned == true) {
     div.addEventListener('mouseover', (e) => {
       if (e.buttons === 1) {
         e.target.style.background = 'black';
-        e.target.style.border = 'black';
+        e.target.style.border = 'black'; //'1px solid white'; Change to white if black, grey if white
       }
     });
   
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'black';
-      e.target.style.border = 'black';
+      e.target.style.border = 'black'; //'1px solid white';
     })
   
   });
