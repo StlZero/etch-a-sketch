@@ -1,7 +1,13 @@
 // Variables
 const grid_container = document.querySelector('.grid-container');
 
-let color_btned = false;
+let color_btn = document.querySelector('#color-btn');
+let rainbow_btn = document.querySelector('#rainbow-btn');
+let erase_btn = document.querySelector('#erase-btn');
+let clear_btn = document.querySelector('#clear-btn');
+let toggle_grid = document.querySelector('#toggle-grid');
+
+
 
 let size_slider = document.querySelector('#size-slider');
 
@@ -48,26 +54,68 @@ size_slider.addEventListener('mouseup', (e) => {
   generateDivs(sliderFunc());
 })
 
+// All button events and functions
+
+color_btn.addEventListener('click', (e) => {
+  colorCells();
+})
+
+
+erase_btn.addEventListener('click', (e) => {
+  eraseCells();
+})
+
+
+
+
+
+
+
+
+
+
 
 
 
 // Change color of divs when hovering over divs while holding down mouse button
-let div1 = document.querySelectorAll('.grid-div');
-//
-if (color_btned == true) {
+function colorCells() {
+  disableDrag();
+  let div1 = document.querySelectorAll('.grid-div');
+
   div1.forEach(div => {
     div.addEventListener('mouseover', (e) => {
       if (e.buttons === 1) {
         e.target.style.background = 'black';
-        e.target.style.border = 'black'; //'1px solid white'; Change to white if black, grey if white
+        e.target.style.border = '1px solid grey';
       }
     });
-  
+    
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'black';
-      e.target.style.border = 'black'; //'1px solid white';
+      e.target.style.border = '1px solid grey';
     })
-  
+    
+  });
+}
+
+// Erase function
+function eraseCells() {
+  disableDrag();
+  let div1 = document.querySelectorAll('.grid-div');
+
+  div1.forEach(div => {
+    div.addEventListener('mouseover', (e) => {
+      if (e.buttons === 1) {
+        e.target.style.background = 'white';
+        e.target.style.border = '1px solid grey';
+      }
+    });
+    
+    div.addEventListener('mousedown', (e) => {
+      e.target.style.background = 'white';
+      e.target.style.border = '1px solid grey';
+    })
+    
   });
 }
 
@@ -92,7 +140,24 @@ if (color_btned == true) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Disable dragging divs (VERY IMPORTANT)
+function disableDrag() {
+  let div1 = document.querySelectorAll('.grid-div');
+
 div1.forEach(div => {
   div.addEventListener('dragstart', (e) => {
     e.preventDefault();
@@ -101,3 +166,5 @@ div1.forEach(div => {
     e.preventDefault();
   });
 });
+}
+disableDrag();

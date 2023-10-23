@@ -13,19 +13,45 @@ body {
   margin: 30px;
 }
 
+.main {
+  display: flex;
+  /* justify-content: center; */
+
+}
+
+
+.setting {
+  width: 300px;
+  height: 600px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* background-color: red; */
+  margin-left: 18.5%;
+}
+
+button {
+  width: 100px;
+  height: 75px;
+}
+
+
+
+
 .grid-container {
-    /* background-color: black; */
-    width: 600px;
-    height: 600px;
-    margin: auto;
+  /* background-color: black; */
+  width: 600px;
+  height: 600px;
     
-    display: flex;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  margin-right: auto;
+  flex-wrap: wrap;
+}
   
-  /* .grid-div {
-    background-color: red;
-    width: 50px;
-    height: 50px;
-    border:1px solid white;
-  } */
+/* .grid-div {
+  background-color: red;
+  width: 50px;
+  height: 50px;
+  border:1px solid white;
+} */
