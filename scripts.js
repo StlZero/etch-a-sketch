@@ -9,6 +9,8 @@ let toggle_grid = document.querySelector('#toggle-grid');
 
 
 
+let btn = document.querySelectorAll('.btn');
+
 let size_slider = document.querySelector('#size-slider');
 
 let display_size = document.querySelector('#display-size');
@@ -28,6 +30,14 @@ function generateDivs(size) {
       
     grid_container.appendChild(div1);
   }
+  
+  if (color_btn.classList.contains("btnSpecial")) {
+    colorCells();
+  } else if (erase_btn.classList.contains("btnSpecial")) {
+    eraseCells();
+  } // else if (condition for raindbow btn) {
+
+  // }
 }
 
 
@@ -35,10 +45,10 @@ function generateDivs(size) {
 // Update the current slider value (each time you drag the slider handle)
 size_slider.oninput = function() {
   sliderFunc();
-};
+}
 
 function sliderFunc() {
-  display_size.textContent = size_slider.value;
+  display_size.textContent = size_slider.value + " x " + size_slider.value;
   return size_slider.value;
 }
 //
@@ -50,20 +60,47 @@ size_slider.addEventListener('mouseup', (e) => {
 
   div1.forEach(element => {
     element.remove();
-  })
+  });
   generateDivs(sliderFunc());
-})
+});
+
+
+// Change color and background color of button when clicked event
+
+btn.forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelector('.btnSpecial')?.classList.remove('btnSpecial');
+    button.classList.add('btnSpecial');
+  });
+});
+
+
+
+
+
+
+
+
+
 
 // All button events and functions
 
 color_btn.addEventListener('click', (e) => {
   colorCells();
-})
+});
 
 
 erase_btn.addEventListener('click', (e) => {
   eraseCells();
-})
+});
+
+clear_btn.addEventListener('click', (e) => {
+  let allDivs = document.querySelectorAll('.grid-div');
+  allDivs.forEach(div => {
+    div.style.background = 'white';
+    div.style.border = '1px solid grey';
+  })
+});
 
 
 
@@ -93,7 +130,7 @@ function colorCells() {
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'black';
       e.target.style.border = '1px solid grey';
-    })
+    });
     
   });
 }
@@ -114,7 +151,7 @@ function eraseCells() {
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'white';
       e.target.style.border = '1px solid grey';
-    })
+    });
     
   });
 }
@@ -168,3 +205,9 @@ div1.forEach(div => {
 });
 }
 disableDrag();
+
+// Testing on event load event
+window.addEventListener("load", (e) => {
+  colorCells();
+  color_btn.classList.add('btnSpecial');
+});
