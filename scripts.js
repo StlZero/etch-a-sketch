@@ -7,6 +7,8 @@ let erase_btn = document.querySelector('#erase-btn');
 let clear_btn = document.querySelector('#clear-btn');
 let toggle_grid = document.querySelector('#toggle-grid');
 
+let toggle_grid_active = false;
+
 
 
 let btn = document.querySelectorAll('.btn');
@@ -97,9 +99,18 @@ erase_btn.addEventListener('click', (e) => {
 clear_btn.addEventListener('click', (e) => {
   let allDivs = document.querySelectorAll('.grid-div');
   allDivs.forEach(div => {
-    div.style.background = 'white';
-    div.style.border = '1px solid grey';
+    if (toggle_grid_active == true) {
+      div.style.background = 'white';
+      div.style.border = '1px solid white';     
+    } else {
+      div.style.background = 'white';
+      div.style.border = '1px solid grey';
+    }
   })
+});
+
+toggle_grid.addEventListener('click', (e) => {
+  toggleGrid();
 });
 
 
@@ -123,15 +134,26 @@ function colorCells() {
     div.addEventListener('mouseover', (e) => {
       if (e.buttons === 1) {
         e.target.style.background = 'black';
-        e.target.style.border = '1px solid grey';
+
+        if (toggle_grid_active == false) {
+          e.target.style.border = div.style.border;
+        }
+        else if (toggle_grid_active == true) {
+          e.target.style.border = '1px solid black';          
+        }
       }
     });
-    
+
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'black';
-      e.target.style.border = '1px solid grey';
+      
+      if (toggle_grid_active == false) {
+        e.target.style.border = div.style.border;
+      }
+      else if (toggle_grid_active == true) {
+        e.target.style.border = '1px solid black';          
+      }
     });
-    
   });
 }
 
@@ -144,17 +166,57 @@ function eraseCells() {
     div.addEventListener('mouseover', (e) => {
       if (e.buttons === 1) {
         e.target.style.background = 'white';
-        e.target.style.border = '1px solid grey';
+        
+        if (toggle_grid_active == false) {
+          e.target.style.border = div.style.border;
+        }
+        else if (toggle_grid_active == true) {
+          e.target.style.border = '1px solid white';          
+        }
       }
     });
     
     div.addEventListener('mousedown', (e) => {
       e.target.style.background = 'white';
-      e.target.style.border = '1px solid grey';
+      
+      if (toggle_grid_active == false) {
+        e.target.style.border = div.style.border;
+      }
+      else if (toggle_grid_active == true) {
+        e.target.style.border = '1px solid white';          
+      }
     });
-    
   });
 }
+
+// Toggle grid function
+function toggleGrid() {
+  let allDivs = document.querySelectorAll('.grid-div');
+
+  // Switch to grid-less
+  if (toggle_grid_active == false) {
+    toggle_grid_active = true;
+
+    allDivs.forEach(div => {
+      div.style.border = '1px solid ' + div.style.background;
+    });
+  } 
+  // Switch back to grid
+  else if (toggle_grid_active == true) {
+    toggle_grid_active = false;
+
+    allDivs.forEach(div => {
+      div.style.border = '1px solid grey';
+    });
+  }
+}
+
+// Function to check toggle grid
+
+
+
+
+
 
 
 
