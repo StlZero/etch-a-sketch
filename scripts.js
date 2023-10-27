@@ -1,4 +1,6 @@
 // Variables
+const hexCharacters = [0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"]
+
 const grid_container = document.querySelector('.grid-container');
 
 let color_btn = document.querySelector('#color-btn');
@@ -19,6 +21,19 @@ let display_size = document.querySelector('#display-size');
 
 
 
+// Function to generate random colors
+function generateRanColor() {
+  let hexColorCode = '#';
+
+  for (i = 0; i < 6; i++) {
+    let n = Math.floor(Math.random() * 15);
+    hexColorCode += hexCharacters[n]; 
+  }
+  return hexColorCode;
+}
+
+
+
 // Generates a grid of square divs
 function generateDivs(size) {
   for (i = 0; i < (size * size); i++) { // Get user input for the size
@@ -27,8 +42,14 @@ function generateDivs(size) {
     let grid_div = document.querySelector('.grid-div');
     div1.style.width = ((600) / (size) - 2).toString() + "px"; // Take container (length) / (user input size) - 2px (border size for each divs)
     div1.style.height = ((600) / (size) - 2).toString() + "px";
-    div1.style.background = 'white';
-    div1.style.border = '1px solid grey';
+
+    if (toggle_grid_active == true) {
+      div1.style.background = 'white';
+      div1.style.border = '1px solid white';     
+    } else {
+      div1.style.background = 'white';
+      div1.style.border = '1px solid grey';
+    }
       
     grid_container.appendChild(div1);
   }
@@ -37,9 +58,9 @@ function generateDivs(size) {
     colorCells();
   } else if (erase_btn.classList.contains("btnSpecial")) {
     eraseCells();
-  } // else if (condition for raindbow btn) {
-
-  // }
+  } else if (rainbow_btn.classList.contains("btnSpecial")) {
+    rainbowCells();
+  }
 }
 
 
@@ -108,6 +129,11 @@ clear_btn.addEventListener('click', (e) => {
     }
   })
 });
+
+rainbow_btn.addEventListener('click', (e) => {
+  rainbowCells();
+});
+
 
 toggle_grid.addEventListener('click', (e) => {
   toggleGrid();
@@ -188,6 +214,47 @@ function eraseCells() {
     });
   });
 }
+
+// Function rainbow color
+function rainbowCells() {
+  disableDrag();
+  let div1 = document.querySelectorAll('.grid-div');
+
+  div1.forEach(div => {
+    div.addEventListener('mouseover', (e) => {
+      let rainbow = generateRanColor().toString();
+
+      if (e.buttons === 1) {
+        e.target.style.background = rainbow;
+
+        if (toggle_grid_active == false) {
+          e.target.style.border = div.style.border;
+        }
+        else if (toggle_grid_active == true) {
+          e.target.style.border = '1px solid ' + rainbow;          
+        }
+      }
+    });
+
+    div.addEventListener('mousedown', (e) => {
+      let rainbow = generateRanColor().toString();
+
+      e.target.style.background = rainbow;
+      
+      if (toggle_grid_active == false) {
+        e.target.style.border = div.style.border;
+      }
+      else if (toggle_grid_active == true) {
+        e.target.style.border = '1px solid ' + rainbow;          
+      }
+    });
+  });
+}
+
+
+
+
+
 
 // Toggle grid function
 function toggleGrid() {
